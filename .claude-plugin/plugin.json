@@ -1,7 +1,7 @@
 {
   "name": "ai-java-developer-skill",
-  "version": "0.1.0",
-  "description": "Java development skills for Claude Code: jdb debugging, code formatting, and build management",
+  "version": "0.2.0",
+  "description": "Java development skills for Claude Code: debugging, profiling, testing, heap analysis, and build management",
   "author": {
     "name": "Li, Xiaoliang"
   },
