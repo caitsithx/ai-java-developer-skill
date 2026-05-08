@@ -7,7 +7,10 @@
   "plugins": [
     {
       "name": "ai-java-developer-skill",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "caitsithx/ai-java-developer-skill"
+      },
       "description": "Java development skills: jdb debugging, Spotless formatting, Maven build management"
     }
   ]
