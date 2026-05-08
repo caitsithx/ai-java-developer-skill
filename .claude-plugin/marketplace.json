@@ -1,0 +1,14 @@
+{
+  "name": "ai-java-developer",
+  "owner": {
+    "name": "Li, Xiaoliang",
+    "email": "xili@zuora.com"
+  },
+  "plugins": [
+    {
+      "name": "ai-java-developer-skill",
+      "source": ".",
+      "description": "Java development skills: jdb debugging, Spotless formatting, Maven build management"
+    }
+  ]
+}

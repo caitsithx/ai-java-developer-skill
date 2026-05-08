@@ -1,0 +1,11 @@
+{
+  "name": "ai-java-developer-skill",
+  "version": "0.1.0",
+  "description": "Java development skills for Claude Code: jdb debugging, code formatting, and build management",
+  "author": {
+    "name": "Li, Xiaoliang"
+  },
+  "repository": "https://github.com/xili-zuora/ai-java-developer-skill",
+  "license": "MIT",
+  "keywords": ["java", "jdb", "debugger", "maven", "spotless", "formatting"]
+}
