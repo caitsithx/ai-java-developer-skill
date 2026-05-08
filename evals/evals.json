@@ -1,0 +1,68 @@
+{
+  "skill_name": "ai-java-developer-skill",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I need to find the latest version of jackson-databind and add it to my pom.xml",
+      "expected_output": "Should search maven central, find latest version, output POM dependency snippet",
+      "target_skill": "maven-central",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "My app is using 98% CPU and top shows thread PID 34521 is the hog. The JVM is running as PID 12000. What is that thread doing?",
+      "expected_output": "Should take thread dump of PID 12000, convert 34521 to hex nid, find matching thread stack trace",
+      "target_skill": "thread-dump",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "I just changed UserService.java and OrderService.java. Run the relevant tests and show me coverage for those files.",
+      "expected_output": "Should find UserServiceTest and OrderServiceTest, run them with jacoco, parse coverage for changed classes",
+      "target_skill": "test",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I'm getting NoClassDefFoundError for com.google.common.collect.ImmutableList at runtime but it compiles fine. What's wrong with my dependencies?",
+      "expected_output": "Should run dependency:analyze to find used-undeclared, check if guava is transitive-only, suggest adding explicit dependency",
+      "target_skill": "dependency",
+      "files": []
+    },
+    {
+      "id": 5,
+      "prompt": "How much heap is my app using? The JVM PID is 21463.",
+      "expected_output": "Should run jmx health or heap command, report used/max/committed heap stats",
+      "target_skill": "jmx",
+      "files": []
+    },
+    {
+      "id": 6,
+      "prompt": "I want to find where the performance bottleneck is in my API. The service is running on PID 21463. Can you profile it for 10 seconds?",
+      "expected_output": "Should start CPU profiling for 10s, report top hot methods or generate flame graph",
+      "target_skill": "profiler",
+      "files": []
+    },
+    {
+      "id": 7,
+      "prompt": "Attach the debugger to port 8089 and set a breakpoint on com.example.PaymentService.processPayment",
+      "expected_output": "Should run jdb-debug attach 8089, then set breakpoint on the specified method",
+      "target_skill": "jdb-debug",
+      "files": []
+    },
+    {
+      "id": 8,
+      "prompt": "The spotless check is failing in CI. Fix the formatting on my changed files.",
+      "expected_output": "Should run spotless:apply to fix formatting",
+      "target_skill": "format",
+      "files": []
+    },
+    {
+      "id": 9,
+      "prompt": "Build just the billing-core module and skip tests",
+      "expected_output": "Should run ./mvnw compile -pl billing-core -DskipTests",
+      "target_skill": "build",
+      "files": []
+    }
+  ]
+}
