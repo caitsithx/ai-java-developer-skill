@@ -2,9 +2,12 @@
 name: test
 description: >
   Run Java tests, debug tests, analyze coverage for changed files.
+  Use this skill whenever the user mentions test failures, wants to run specific
+  tests, check test coverage, debug a failing test, or verify their changes pass.
   Trigger phrases: "run test", "test class", "run unit tests",
   "debug test", "test coverage", "coverage report", "rerun failed",
-  "test method", "run tests for".
+  "test method", "run tests for", "tests failing", "check coverage",
+  "test my changes", "which tests cover".
 ---
 
 # Java Test — Test Runner & Coverage Analyzer

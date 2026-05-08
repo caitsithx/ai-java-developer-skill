@@ -2,8 +2,11 @@
 name: build
 description: >
   Build Java projects with Maven. Handles compilation, testing, packaging.
+  Use this skill whenever the user mentions build errors, compile failures,
+  class not found errors, maven problems, or wants to compile/package a project.
   Trigger phrases: "build java", "maven build", "compile", "mvn install",
-  "run tests", "package", "mvn clean", "build project".
+  "run tests", "package", "mvn clean", "build project", "compile failed",
+  "class not found", "build error", "maven error", "cannot find symbol".
 ---
 
 # Java Build — Maven Build Management

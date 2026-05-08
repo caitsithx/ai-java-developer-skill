@@ -3,9 +3,13 @@ name: profiler
 description: >
   Profile running Java applications for CPU, memory, and lock contention.
   Uses async-profiler or JDK Flight Recorder. Generates flame graphs.
+  Use this skill whenever the user mentions performance issues, slow endpoints,
+  wants to find hot methods, or needs to optimize Java code.
   Trigger phrases: "profile java", "flame graph", "cpu profile",
   "memory profiling", "allocation profiler", "what is slow",
-  "performance profile", "JFR", "async-profiler", "hot methods".
+  "performance profile", "JFR", "async-profiler", "hot methods",
+  "performance issue", "optimize", "slow endpoint", "bottleneck",
+  "where is time spent".
 ---
 
 # Java Profiler — CPU, Memory & Lock Profiling

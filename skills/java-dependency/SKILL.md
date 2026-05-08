@@ -3,9 +3,13 @@ name: dependency
 description: >
   Analyze Java/Maven dependency issues: cyclic dependencies, unused declared,
   used undeclared, version conflicts, and dependency tree inspection.
+  Use this skill whenever the user mentions classpath issues, NoClassDefFoundError,
+  version conflicts, transitive dependency problems, or wants to audit dependencies.
   Trigger phrases: "dependency issue", "dependency tree", "unused dependency",
   "cyclic dependency", "dependency conflict", "dependency analyze",
-  "used undeclared", "unused declared", "check dependencies".
+  "used undeclared", "unused declared", "check dependencies",
+  "classpath issue", "NoClassDefFoundError", "version conflict",
+  "which module pulls in", "transitive dependency".
 ---
 
 # Java Dependency — Dependency Issue Analyzer

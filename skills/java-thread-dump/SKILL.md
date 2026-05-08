@@ -3,9 +3,12 @@ name: thread-dump
 description: >
   Take and analyze Java thread dumps from running JVMs. Accepts OS-level PID
   from top, converts to JVM nid, finds deadlocks, blocked threads, and CPU hogs.
+  Use this skill whenever the user mentions an app hanging, a process stuck,
+  high CPU from a Java thread, or needs to understand what threads are doing.
   Trigger phrases: "thread dump", "jstack", "deadlock", "thread blocked",
   "high cpu thread", "why is java hanging", "cpu hog", "thread analysis",
-  "what is pid doing", "blocked thread".
+  "what is pid doing", "blocked thread", "app is hanging", "app is stuck",
+  "why is it slow", "process not responding".
 ---
 
 # Java Thread Dump — Live JVM Thread Analysis

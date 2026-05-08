@@ -8,6 +8,10 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+source "${PLUGIN_ROOT}/scripts/common.sh"
+
 BASE_REF="${1:-}"
 
 # Find changed Java source files
@@ -60,10 +64,7 @@ echo "Running tests: ${TEST_CLASSES}"
 echo ""
 
 # Build maven command
-MVN="./mvnw"
-if [[ ! -x "${MVN}" ]]; then
-    MVN="mvn"
-fi
+MVN=$(resolve_mvnw)
 
 CMD="${MVN} test"
 if [[ -n "${MODULES}" ]]; then

@@ -5,10 +5,14 @@ description: >
   Attaches to any running JVM with JDWP enabled via named pipes, allowing
   breakpoints, variable inspection, stepping, and execution control — all
   from within Claude Code without an interactive terminal.
+  Use this skill whenever the user wants to debug Java code at runtime,
+  inspect variable values, understand why a NullPointerException occurs,
+  check what value a field has during execution, or step through code logic.
   Trigger phrases: "attach debugger", "set breakpoint", "debug java",
   "inspect variable", "jdb", "breakpoint at", "print variable",
   "stack trace", "detach debugger", "connect debugger to port",
-  "step through code", "debug port".
+  "step through code", "debug port", "null pointer", "inspect at runtime",
+  "why is this value wrong", "what is the value of".
 ---
 
 # JDB Debug — Java Debugger for Claude Code

@@ -8,7 +8,9 @@
 
 set -euo pipefail
 
-die() { echo "ERROR: $*" >&2; exit 1; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+source "${PLUGIN_ROOT}/scripts/common.sh"
 
 JVM_PID=""
 OS_TID=""
@@ -33,28 +35,10 @@ done
 
 [[ -n "${JVM_PID}" ]] || die "Usage: thread-dump.sh <jvm-pid> [--tid <os-pid>] [--repeat N]"
 
-# Verify JVM process exists
-kill -0 "${JVM_PID}" 2>/dev/null || die "Process ${JVM_PID} not found"
+check_pid "${JVM_PID}" "thread-dump.sh <jvm-pid> [--tid <os-pid>] [--repeat N]"
+check_java_process "${JVM_PID}"
 
-# Verify it's a Java process
-PROC_CMD=$(ps -o comm= -p "${JVM_PID}" 2>/dev/null || true)
-if [[ "${PROC_CMD}" != *"java"* ]]; then
-    echo "⚠️  PID ${JVM_PID} is '${PROC_CMD}', may not be a Java process"
-fi
-
-# ── Resolve jstack ──
-
-resolve_jstack() {
-    if command -v jstack &>/dev/null; then
-        echo "jstack"
-    elif [[ -n "${JAVA_HOME:-}" ]] && [[ -x "${JAVA_HOME}/bin/jstack" ]]; then
-        echo "${JAVA_HOME}/bin/jstack"
-    else
-        die "jstack not found. Ensure a JDK is installed."
-    fi
-}
-
-JSTACK=$(resolve_jstack)
+JSTACK=$(resolve_jdk_tool jstack)
 mkdir -p "${DUMP_DIR}"
 
 # ── Take dump(s) ──

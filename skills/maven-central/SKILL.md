@@ -2,9 +2,13 @@
 name: maven-central
 description: >
   Search Maven Central for artifacts, find latest versions, get POM snippets.
+  Use this skill whenever the user wants to add a library, find the right version
+  of a dependency, get Maven coordinates, or needs a POM snippet.
   Trigger phrases: "find artifact", "maven central", "latest version of",
   "search maven", "dependency for", "add dependency", "what version",
-  "find library", "maven coordinates", "groupId artifactId".
+  "find library", "maven coordinates", "groupId artifactId",
+  "what version should I use", "add library", "find package",
+  "which artifact".
 ---
 
 # Maven Central — Artifact Search & Version Lookup

@@ -2,8 +2,12 @@
 name: format
 description: >
   Format Java code using Spotless with project code style.
+  Use this skill whenever the user mentions formatting issues, style violations,
+  checkstyle failures, or wants to reformat Java files.
   Trigger phrases: "format java", "spotless", "fix formatting",
-  "code style", "reformat", "format file", "java formatter".
+  "code style", "reformat", "format file", "java formatter",
+  "formatting broken", "checkstyle", "code style violation",
+  "spotless check failed".
 ---
 
 # Java Format — Spotless Code Formatter

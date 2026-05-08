@@ -23,6 +23,10 @@
 
 set -euo pipefail
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+source "${PLUGIN_ROOT}/scripts/common.sh"
+
 STATE_DIR="/tmp/jdb-debug"
 FIFO_IN="${STATE_DIR}/in"
 OUT_FILE="${STATE_DIR}/out"
@@ -32,19 +36,6 @@ JDB_WAIT="${JDB_WAIT:-2}"
 MAX_OUTPUT_LINES=50
 
 # ── Helpers ──
-
-die()  { echo "ERROR: $*" >&2; exit 1; }
-info() { echo "  $*"; }
-
-resolve_jdb() {
-    if command -v jdb &>/dev/null; then
-        echo "jdb"
-    elif [[ -n "${JAVA_HOME:-}" ]] && [[ -x "${JAVA_HOME}/bin/jdb" ]]; then
-        echo "${JAVA_HOME}/bin/jdb"
-    else
-        die "jdb not found. Ensure a JDK is installed and jdb is on PATH or JAVA_HOME is set."
-    fi
-}
 
 is_attached() {
     [[ -f "${PID_FILE}" ]] && kill -0 "$(cat "${PID_FILE}")" 2>/dev/null
@@ -64,7 +55,7 @@ send_cmd() {
 cmd_attach() {
     local port="${1:?Usage: jdb-debug.sh attach <port>}"
     local jdb_bin
-    jdb_bin="$(resolve_jdb)"
+    jdb_bin="$(resolve_jdk_tool jdb)"
 
     # Kill existing session if any
     if is_attached; then

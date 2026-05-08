@@ -11,7 +11,9 @@
 
 set -euo pipefail
 
-die() { echo "ERROR: $*" >&2; exit 1; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+source "${PLUGIN_ROOT}/scripts/common.sh"
 
 OUTPUT_DIR="${PROFILE_OUTPUT:-/tmp/java-profiler}"
 DURATION="${PROFILE_DURATION:-30}"
@@ -123,13 +125,7 @@ asprof_top() {
 
 JCMD=""
 resolve_jcmd() {
-    if command -v jcmd &>/dev/null; then
-        JCMD="jcmd"
-    elif [[ -n "${JAVA_HOME:-}" ]] && [[ -x "${JAVA_HOME}/bin/jcmd" ]]; then
-        JCMD="${JAVA_HOME}/bin/jcmd"
-    else
-        die "jcmd not found"
-    fi
+    JCMD=$(resolve_jdk_tool jcmd)
 }
 
 jfr_event_settings() {
@@ -262,8 +258,7 @@ detect_profiler
 
 case "${COMMAND}" in
     start)
-        [[ -n "${PID}" ]] || die "Usage: profiler.sh start <pid>"
-        kill -0 "${PID}" 2>/dev/null || die "Process ${PID} not found"
+        check_pid "${PID}" "profiler.sh start <pid>"
         if [[ "${PROFILER}" == "async" ]]; then asprof_start; else jfr_start; fi
         ;;
     stop)
@@ -275,13 +270,11 @@ case "${COMMAND}" in
         if [[ "${PROFILER}" == "async" ]]; then asprof_status; else jfr_status; fi
         ;;
     flamegraph|flame)
-        [[ -n "${PID}" ]] || die "Usage: profiler.sh flamegraph <pid>"
-        kill -0 "${PID}" 2>/dev/null || die "Process ${PID} not found"
+        check_pid "${PID}" "profiler.sh flamegraph <pid>"
         if [[ "${PROFILER}" == "async" ]]; then asprof_flamegraph; else jfr_flamegraph; fi
         ;;
     top)
-        [[ -n "${PID}" ]] || die "Usage: profiler.sh top <pid>"
-        kill -0 "${PID}" 2>/dev/null || die "Process ${PID} not found"
+        check_pid "${PID}" "profiler.sh top <pid>"
         if [[ "${PROFILER}" == "async" ]]; then asprof_top; else jfr_top; fi
         ;;
     diff)

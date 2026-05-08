@@ -4,6 +4,8 @@
 
 set -euo pipefail
 
+# Hook script — intentionally lightweight (no common.sh sourcing to avoid overhead)
+
 # Only act on .java files
 FILE_PATH="${CLAUDE_FILE_PATH:-}"
 if [[ -z "${FILE_PATH}" || "${FILE_PATH}" != *.java ]]; then

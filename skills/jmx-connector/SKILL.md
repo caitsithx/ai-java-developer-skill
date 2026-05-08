@@ -3,9 +3,12 @@ name: jmx
 description: >
   Query JVM runtime metrics via JMX (jcmd/jstat). Read heap memory, GC stats,
   thread counts, CPU load, class loading, and custom MBeans from running JVMs.
+  Use this skill whenever the user asks about JVM health, memory usage, whether
+  there's a memory leak, GC pressure, or wants to check connection pool stats.
   Trigger phrases: "heap usage", "gc stats", "jmx", "memory usage",
   "how much heap", "connection pool", "jvm health", "thread count",
-  "gc pauses", "class loading", "jstat", "jcmd".
+  "gc pauses", "class loading", "jstat", "jcmd", "is my app healthy",
+  "memory leak", "how much memory", "out of memory".
 ---
 
 # JMX Connector — JVM Runtime Metrics

@@ -13,7 +13,9 @@
 
 set -euo pipefail
 
-die() { echo "ERROR: $*" >&2; exit 1; }
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PLUGIN_ROOT="$(cd "${SCRIPT_DIR}/../../.." && pwd)"
+source "${PLUGIN_ROOT}/scripts/common.sh"
 
 COMMAND="${1:-help}"
 PID="${2:-}"
@@ -24,43 +26,18 @@ JCMD=""
 JSTAT=""
 
 resolve_tools() {
-    if command -v jcmd &>/dev/null; then
-        JCMD="jcmd"
-    elif [[ -n "${JAVA_HOME:-}" ]] && [[ -x "${JAVA_HOME}/bin/jcmd" ]]; then
-        JCMD="${JAVA_HOME}/bin/jcmd"
-    else
-        die "jcmd not found. Ensure a JDK is installed."
-    fi
-
-    if command -v jstat &>/dev/null; then
-        JSTAT="jstat"
-    elif [[ -n "${JAVA_HOME:-}" ]] && [[ -x "${JAVA_HOME}/bin/jstat" ]]; then
-        JSTAT="${JAVA_HOME}/bin/jstat"
-    fi
+    JCMD=$(resolve_jdk_tool jcmd)
+    JSTAT=$(resolve_jdk_tool jstat --optional) || JSTAT=""
 }
 
-check_pid() {
-    [[ -n "${PID}" ]] || die "Usage: jmx-query.sh ${COMMAND} <pid>"
-    kill -0 "${PID}" 2>/dev/null || die "Process ${PID} not found"
-}
-
-# ── Helpers ──
-
-bytes_to_human() {
-    local bytes=$1
-    if [[ ${bytes} -ge 1073741824 ]]; then
-        echo "$(awk "BEGIN {printf \"%.1f GB\", ${bytes}/1073741824}")"
-    elif [[ ${bytes} -ge 1048576 ]]; then
-        echo "$(awk "BEGIN {printf \"%.0f MB\", ${bytes}/1048576}")"
-    else
-        echo "$(awk "BEGIN {printf \"%.0f KB\", ${bytes}/1024}")"
-    fi
+_check_pid() {
+    check_pid "${PID}" "jmx-query.sh ${COMMAND} <pid>"
 }
 
 # ── Commands ──
 
 cmd_heap() {
-    check_pid
+    _check_pid
     echo "Heap Memory (PID: ${PID}):"
     echo "───────────────────────────────────────"
 
@@ -87,7 +64,7 @@ cmd_heap() {
 }
 
 cmd_gc() {
-    check_pid
+    _check_pid
     echo "GC Statistics (PID: ${PID}):"
     echo "───────────────────────────────────────"
 
@@ -115,7 +92,7 @@ cmd_gc() {
 }
 
 cmd_threads() {
-    check_pid
+    _check_pid
     echo "Thread Info (PID: ${PID}):"
     echo "───────────────────────────────────────"
 
@@ -132,7 +109,7 @@ cmd_threads() {
 }
 
 cmd_cpu() {
-    check_pid
+    _check_pid
     echo "CPU Load (PID: ${PID}):"
     echo "───────────────────────────────────────"
 
@@ -158,7 +135,7 @@ cmd_cpu() {
 }
 
 cmd_classes() {
-    check_pid
+    _check_pid
     echo "Class Loading (PID: ${PID}):"
     echo "───────────────────────────────────────"
 
@@ -178,7 +155,7 @@ cmd_classes() {
 }
 
 cmd_mbean() {
-    check_pid
+    _check_pid
     local mbean_name="${3:-}"
     local attribute="${4:-}"
     [[ -n "${mbean_name}" ]] || die "Usage: jmx-query.sh mbean <pid> <object-name> <attribute>"
@@ -219,7 +196,7 @@ cmd_mbean() {
 }
 
 cmd_list() {
-    check_pid
+    _check_pid
     local pattern="${3:-*:*}"
 
     echo "MBeans matching '${pattern}' (PID: ${PID}):"
@@ -259,7 +236,7 @@ cmd_list() {
 }
 
 cmd_health() {
-    check_pid
+    _check_pid
     echo "═══ JVM Health (PID: ${PID}) ═══"
     echo ""
     cmd_heap
